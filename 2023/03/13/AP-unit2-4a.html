@@ -79,7 +79,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      10 min read
+      11 min read
     
 </span></p>
 
@@ -123,7 +123,6 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#Model-Definition">Model Definition </a></li>
 <li class="toc-entry toc-h2"><a href="#Initial-Data">Initial Data </a></li>
 <li class="toc-entry toc-h2"><a href="#Check-for-given-Credentials-in-users-table-in-sqlite.db">Check for given Credentials in users table in sqlite.db </a></li>
-<li class="toc-entry toc-h2"><a href="#2.-user.password">2. user.password </a></li>
 <li class="toc-entry toc-h2"><a href="#Create-a-new-User-in-table-in-Sqlite.db">Create a new User in table in Sqlite.db </a></li>
 <li class="toc-entry toc-h2"><a href="#Reading-users-table-in-sqlite.db">Reading users table in sqlite.db </a></li>
 </ul>
@@ -188,8 +187,8 @@ window.onload = wrap_img;
 <li>Comment on where you have observed these working?</li>
 </ul>
 <ol>
-<li>Flask app object</li>
-<li>SQLAlchemy object</li>
+<li>Flask app object - Backends with APIs</li>
+<li>SQLAlchemy object - Sqlite tables</li>
 </ol>
 
 </div>
@@ -243,13 +242,12 @@ window.onload = wrap_img;
 <p>Define columns, initialization, and CRUD methods for users table in sqlite.db</p>
 </blockquote>
 <ul>
-<li>Comment on these items in the class</li>
-<li>class User purpose</li>
-<li>db.Model inheritance</li>
+<li>class User purpose - The object assigned to the user's purpose</li>
+<li>db.Model inheritance - A parameter of class user, it is being inherited; object-oriented programming</li>
 <li>
-<em>init</em> method</li>
-<li>@property, @<column>.setter&lt;/li&gt;
-<li>additional methods</li>
+<em>init</em> method - The method used to initialize the database</li>
+<li>@property, @<column>.setter - Getter and setter; gets, updates, and reads data between a frontend/backend&lt;/li&gt;
+<li>additional methods - object vs integrational programming</li>
 &lt;/ul&gt;
 
 &lt;/div&gt;
@@ -424,9 +422,18 @@ window.onload = wrap_img;
 <li>Comment on how these work?</li>
 </ul>
 <ol>
-<li>Create All Tables from db Object</li>
-<li>User Object Constructors</li>
-<li>Try / Except </li>
+<li>Create All Tables from db Object<ul>
+<li>creates the tables/database according to the information input by the user</li>
+</ul>
+</li>
+<li>User Object Constructors<ul>
+<li>Constructs a User as an object, based on the input data</li>
+</ul>
+</li>
+<li>Try / Except <ul>
+<li>Tells program to try a command, skips to except command if try is not met (a lot like elif)</li>
+</ul>
+</li>
 </ol>
 
 </div>
@@ -515,9 +522,13 @@ Records exist uid raven, or error.
 <li>Runs a check to make sure the id is the same as what is input</li>
 <li>Object used to find other object</li>
 </ul>
-<h2 id="2.-user.password">
-<a class="anchor" href="#2.-user.password" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. user.password<a class="anchor-link" href="#2.-user.password"> </a>
-</h2>
+<ol>
+<li>user.password</li>
+</ol>
+<ul>
+<li>creates a password and checks it to make sure it exists</li>
+</ul>
+
 </div>
 </div>
 </div>
@@ -566,10 +577,22 @@ Records exist uid raven, or error.
 <li>Comment on purpose of following</li>
 </ul>
 <ol>
-<li>user.find_by_uid() and try/except</li>
-<li>user = User(...)</li>
-<li>user.dob and try/except</li>
-<li>user.create() and try/except</li>
+<li>user.find_by_uid() and try/except<ul>
+<li>Finds user based on the number in the UID, ensures that the user is there or does a pass if it isn't</li>
+</ul>
+</li>
+<li>user = User(...)<ul>
+<li>The user information, initializes user so it can be pulled up</li>
+</ul>
+</li>
+<li>user.dob and try/except<ul>
+<li>If a birthdate is input, it runs try, if no birthdate is input, it runs except</li>
+</ul>
+</li>
+<li>user.create() and try/except<ul>
+<li>creates user based on the information that is input</li>
+</ul>
+</li>
 </ol>
 
 </div>

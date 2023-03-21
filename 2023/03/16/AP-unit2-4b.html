@@ -13,14 +13,12 @@
 <link rel="canonical" href="https://keiraokimoto.github.io/Fastpages/2023/03/16/AP-unit2-4b.html" />
 <meta property="og:url" content="https://keiraokimoto.github.io/Fastpages/2023/03/16/AP-unit2-4b.html" />
 <meta property="og:site_name" content="Keira’s Blog" />
-<meta property="og:image" content="https://keiraokimoto.github.io/Fastpages/images/python.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2023-03-16T00:00:00-05:00" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:image" content="https://keiraokimoto.github.io/Fastpages/images/python.png" />
+<meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Unit 2.4b Using Programs with Data, SQL" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-03-16T00:00:00-05:00","datePublished":"2023-03-16T00:00:00-05:00","description":"Using Programs with Data is focused on SQL and database actions. Part B focuses on learning SQL commands, connections, and curses using an Imperative programming style,","headline":"Unit 2.4b Using Programs with Data, SQL","image":"https://keiraokimoto.github.io/Fastpages/images/python.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://keiraokimoto.github.io/Fastpages/2023/03/16/AP-unit2-4b.html"},"url":"https://keiraokimoto.github.io/Fastpages/2023/03/16/AP-unit2-4b.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-03-16T00:00:00-05:00","datePublished":"2023-03-16T00:00:00-05:00","description":"Using Programs with Data is focused on SQL and database actions. Part B focuses on learning SQL commands, connections, and curses using an Imperative programming style,","headline":"Unit 2.4b Using Programs with Data, SQL","mainEntityOfPage":{"@type":"WebPage","@id":"https://keiraokimoto.github.io/Fastpages/2023/03/16/AP-unit2-4b.html"},"url":"https://keiraokimoto.github.io/Fastpages/2023/03/16/AP-unit2-4b.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/Fastpages/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://keiraokimoto.github.io/Fastpages/feed.xml" title="Keira's Blog" /><link rel="shortcut icon" type="image/x-icon" href="/Fastpages/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -196,7 +194,7 @@ window.onload = wrap_img;
     <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">database</span><span class="p">)</span>
 
     <span class="c1"># Create a cursor object to execute SQL queries</span>
-    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="c1"># This is an object, it basically has the same basic functionality of an object in OOP programming</span>
     
     <span class="c1"># Fetch results of Schema</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"PRAGMA table_info('users')"</span><span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
@@ -357,6 +355,7 @@ window.onload = wrap_img;
     <span class="k">try</span><span class="p">:</span>
         <span class="c1"># Execute an SQL command to insert data into a table</span>
         <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"INSERT INTO users (_name, _uid, _password, _dob) VALUES (?, ?, ?, ?)"</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">uid</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">dob</span><span class="p">))</span>
+        <span class="c1"># Inserts data for name, uid, password, and date of birth, '(?, ?, ?, ?)' is the amount of rows/items there are</span>
         
         <span class="c1"># Commit the changes to the database</span>
         <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
@@ -369,8 +368,6 @@ window.onload = wrap_img;
     <span class="c1"># Close the cursor and connection objects</span>
     <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-    
-<span class="c1">#create()</span>
 </pre></div>
 
     </div>
@@ -636,6 +633,7 @@ window.onload = wrap_img;
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">database</span> <span class="o">=</span> <span class="s1">'pythonsqlite.db'</span>
 
+    <span class="c1"># sends command to sqlite, tells sqlite to create a table if one does not already exist</span>
     <span class="n">sql_create_people_table</span> <span class="o">=</span> <span class="s2">""" CREATE TABLE IF NOT EXISTS people (</span>
 <span class="s2">                                        socSecNum integer PRIMARY KEY,</span>
 <span class="s2">                                        name text NOT NULL,</span>
@@ -654,13 +652,13 @@ window.onload = wrap_img;
         <span class="nb">print</span><span class="p">(</span><span class="s2">"Error! cannot create the database connection."</span><span class="p">)</span>
 
     <span class="n">current_datetime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
-    <span class="n">ssn</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">current_datetime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"</span><span class="si">%f</span><span class="s2">%M%S"</span><span class="p">))</span>
-    <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'Mayoi Ayase'</span><span class="p">,</span> <span class="s1">'Yuzuru Fushimi'</span><span class="p">]</span>
+    <span class="n">ssn</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">current_datetime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"</span><span class="si">%f</span><span class="s2">%M%S"</span><span class="p">))</span> <span class="c1"># Uses datetime to randomly generate a social security num</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'Mayoi Ayase'</span><span class="p">,</span> <span class="s1">'Yuzuru Fushimi'</span><span class="p">]</span> <span class="c1"># Names that are added into the table</span>
     <span class="k">with</span> <span class="n">conn</span><span class="p">:</span>
         <span class="c1"># create a new project</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)):</span> <span class="c1"># loops data adding</span>
             <span class="n">n</span> <span class="o">=</span> <span class="n">ssn</span> <span class="o">+</span> <span class="n">i</span>
-            <span class="n">person1</span> <span class="o">=</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s1">'2004-06-06'</span><span class="p">,</span> <span class="s1">'18'</span><span class="p">)</span>
+            <span class="n">person1</span> <span class="o">=</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s1">'2004-06-06'</span><span class="p">,</span> <span class="s1">'18'</span><span class="p">)</span> <span class="c1"># ands the date of birth and age</span>
             <span class="n">person_id</span> <span class="o">=</span> <span class="n">create_person</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">person1</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">'Created person '</span><span class="p">,</span> <span class="n">person_id</span><span class="p">)</span>
 
@@ -672,7 +670,7 @@ window.onload = wrap_img;
         <span class="c1"># create_person(conn, person2)</span>
 
 
-<span class="k">def</span> <span class="nf">create_person</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">person</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">create_person</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">person</span><span class="p">):</span> <span class="c1"># creates a new person</span>
     <span class="sd">"""</span>
 <span class="sd">    Create a new person into the people table</span>
 <span class="sd">    :param conn:</span>
@@ -681,10 +679,10 @@ window.onload = wrap_img;
 <span class="sd">    """</span>
     <span class="n">sql</span> <span class="o">=</span> <span class="s1">''' INSERT INTO people(socSecNum, name, birth_date, age)</span>
 <span class="s1">              VALUES(?,?,?,?) '''</span>
-    <span class="n">cur</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-    <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">person</span><span class="p">)</span>
+    <span class="n">cur</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="c1"># connects to cursor</span>
+    <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">person</span><span class="p">)</span> 
     <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">cur</span><span class="o">.</span><span class="n">lastrowid</span>
+    <span class="k">return</span> <span class="n">cur</span><span class="o">.</span><span class="n">lastrowid</span> <span class="c1"># puts data into the table</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
