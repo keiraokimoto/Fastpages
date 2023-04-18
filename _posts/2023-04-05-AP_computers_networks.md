@@ -122,6 +122,22 @@ The "network" layer is responsible for ***routing data packets between networks*
 - Complete the network activity, summarize your understanding of fault tolerance.
   - Fault tolerence is the amount of tolerance a system of networks has to any breaks or disconnections in the system. For example, if one connection is severed, the device can still communicate with other devices in the network, because there are still connections to other devices. 
 
+  Which of the following is NOT a benefit of a fault-tolerant network?
+    A. Data has more than one path to travel from one device to another.
+    B. If part of the network fails, the network can still function by using other paths.
+    C. Data will only take one route from one device to another, no matter the number of routes available.
+    D. More devices creates more connections and makes the network stronger.
+
+    [C] Data will only take one route from one device to another, no matter the number of routes available.
+
+  What would make this network fault-tolerant?
+    A. A connection from A to B 
+    B. A connection from B to C 
+    C. A connection from E to G 
+    D. A connection from E to F
+
+    [A] A connection from A to B 
+
 ### Parallel and Distributed Computing
 > Review previous lecture on Parallel Computing and watch Daily vidoe 4.3. Think of ways to make something in you team project to utilize Cores more effectively. Here are some thoughts to add to your story of Computers and Networks...
 
@@ -129,7 +145,6 @@ The "network" layer is responsible for ***routing data packets between networks*
   - Naturally districuted frontend/backend architecture handles complex logic required for a program to run. This can include database, authentication, security management, and otherwise. User interfaces, inputs, and some other basic processes are part of the frontend, whereas data management and other application logic and tasks are distributed to the backend. 
 
 - Analyze this command in Docker: ```ENV GUNICORN_CMD_ARGS="--workers=1 --bind=0.0.0.0:8086"```. Determine if there is options are options in this command for parallel computing within the server that runs python/gunicorn. Here is an [article](https://medium.com/building-the-system/gunicorn-3-means-of-concurrency-efbb547674b7)
-
 
 > Last week we discussed parallel computing on local machine.  There are many options.  Here is something to get parallel computing work with a tool called Ray.
 - Review this [article](https://www.anyscale.com/blog/writing-your-first-distributed-python-application-with-ray)...  Can you get parallel code on images to work more effectively?  I have not tried Ray.
