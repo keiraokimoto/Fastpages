@@ -1,0 +1,11 @@
+--2023-04-28 15:54:04--  https://colab.research.google.com/drive/1uW_W-TaIjO8TH29JcE5kF5HFpYaaq0-l
+Resolving colab.research.google.com (colab.research.google.com)... 142.250.188.238, 2001:4860:4802:32::180, 2001:4860:4802:34::180, ...
+Connecting to colab.research.google.com (colab.research.google.com)|142.250.188.238|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: ‘1uW_W-TaIjO8TH29JcE5kF5HFpYaaq0-l’
+
+1uW_W-TaIjO8TH29JcE5kF5HFpYaa     [<=>                                               ]       0  --.-KB/s               1uW_W-TaIjO8TH29JcE5kF5HFpYaa     [ <=>                                              ]  72.63K  --.-KB/s    in 0.06s   
+
+2023-04-28 15:54:04 (1.26 MB/s) - ‘1uW_W-TaIjO8TH29JcE5kF5HFpYaaq0-l’ saved [74370]
+
