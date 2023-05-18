@@ -268,7 +268,7 @@ window.onload = wrap_img;
             </thead>
             <tbody>
                 <tr>
-                    <td id="jsonText">{"subject":[{"id":"Q","question":"...?","isImage":"true","answer":"answerChoice","solution":"solutionDescr","score": 1, "choices":[{"choice1", "choice2", "choice3", "choice4"}]}]}</td>
+                    <td id="jsonText">{"subject":[{"id":"Q","question":"...?","isImage":"true","answer":"answerChoice","solution":"solutionDescr","score": 1, "choices":{"choice1", "choice2", "choice3", "choice4"}}]}</td>
                 </tr>
             </tbody>
         </table>
@@ -331,7 +331,7 @@ window.onload = wrap_img;
 <span class="cm">   * return value: JSON object</span>
 <span class="cm">  */</span>
   <span class="nx">getJSON</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="k">typeof</span> <span class="k">this</span><span class="p">,</span> <span class="nx">subject</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">subject</span><span class="p">,</span> <span class="nx">id</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="nx">question</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">question</span><span class="p">,</span> <span class="nx">isImage</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">isImage</span><span class="p">,</span> <span class="nx">answer</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">answer</span><span class="p">,</span> <span class="nx">solution</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">solution</span><span class="p">,</span> <span class="nx">score</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">score</span><span class="p">,</span> <span class="nx">choices</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">choices</span><span class="p">,};</span>
+    <span class="kr">const</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">subject</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">subject</span><span class="p">,</span> <span class="nx">id</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="nx">question</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">question</span><span class="p">,</span> <span class="nx">isImage</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">isImage</span><span class="p">,</span> <span class="nx">answer</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">answer</span><span class="p">,</span> <span class="nx">solution</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">solution</span><span class="p">,</span> <span class="nx">score</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">score</span><span class="p">,</span> <span class="nx">choices</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">choices</span><span class="p">,};</span>
     <span class="kr">const</span> <span class="nx">json</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">obj</span><span class="p">);</span>
     <span class="k">return</span> <span class="nx">json</span><span class="p">;</span>
   <span class="p">}</span>
@@ -367,10 +367,10 @@ window.onload = wrap_img;
 
 
 
-<div id="fcebfe35-3d1e-4f0f-8273-5b3abc642178"></div>
+<div id="d6def416-b444-44f8-82f5-624d2b38b472"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#fcebfe35-3d1e-4f0f-8273-5b3abc642178');
+var element = $('#d6def416-b444-44f8-82f5-624d2b38b472');
 console.log("Question objects");
 
 /* class: Question
@@ -408,7 +408,7 @@ class Question {
    * return value: JSON object
   */
   getJSON() {
-    const obj = {type: typeof this, subject: this.subject, id: this.id, question: this.question, isImage: this.isImage, answer = this.answer, solution: this.solution, score: this.score, choices: this.choices,};
+    const obj = {subject: this.subject, id: this.id, question: this.question, isImage: this.isImage, answer = this.answer, solution: this.solution, score: this.score, choices: this.choices,};
     const json = JSON.stringify(obj);
     return json;
   }
@@ -560,10 +560,10 @@ newQuestion.logIt();  // log to console
 
 
 
-<div id="53909ca3-9298-4fcd-9f10-ecf576563c63"></div>
+<div id="dfafbfff-5637-46e9-904a-0c219a0e5056"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#53909ca3-9298-4fcd-9f10-ecf576563c63');
+var element = $('#dfafbfff-5637-46e9-904a-0c219a0e5056');
 
 console.log("Question objects");
 
@@ -729,10 +729,10 @@ $('#jsonText').text(question.json);  // posts/embeds/writes compsci.json to HTML
 
 
 
-<div id="ec344fb7-19de-4625-95ca-8e74f0bad36a"></div>
+<div id="1033b2d5-6302-46bd-b145-402e5ad6909f"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ec344fb7-19de-4625-95ca-8e74f0bad36a');
+var element = $('#1033b2d5-6302-46bd-b145-402e5ad6909f');
 console.log("Question Web Page");
 
 // extract JSON text from HTML page
@@ -782,6 +782,49 @@ for (var row of question) {
 
 <div class="inner_cell">
     <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">sortQuestions</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">min_index</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">id</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nb">id</span><span class="p">[</span><span class="n">min_index</span><span class="p">]:</span>
+                <span class="n">min_index</span> <span class="o">=</span> <span class="n">j</span>
+        <span class="nb">id</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="nb">id</span><span class="p">[</span><span class="n">min_index</span><span class="p">]</span> <span class="o">=</span> <span class="nb">id</span><span class="p">[</span><span class="n">min_index</span><span class="p">],</span> <span class="nb">id</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+<span class="c1"># Test the selection sort</span>
+<span class="nb">id</span> <span class="o">=</span> 
+<span class="n">sortQuestions</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&#39;Q1&#39;, &#39;Q2&#39;, &#39;Q3&#39;, &#39;Q4&#39;, &#39;Q5&#39;]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%html</span>
 <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
     <span class="c">&lt;!-- load jQuery and DataTables syle and scripts --&gt;</span>
@@ -795,15 +838,20 @@ for (var row of question) {
             <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Subject<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
             <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>ID<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
             <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Question<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Answers<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Answer<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
         <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
     <span class="p">&lt;/</span><span class="nt">thead</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">tbody</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;flaskBody&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">tbody</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
 
+
+
 <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
   <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;http://localhost:5000/api/quiz&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;cors&#39;</span> <span class="p">})</span>
+  <span class="nx">subj</span> <span class="o">=</span> <span class="s1">&#39;Physics&#39;</span><span class="p">;</span>
+  <span class="nx">totalQs</span><span class="o">=</span><span class="mf">10</span><span class="p">;</span>
+  <span class="kr">const</span> <span class="nx">fetchQuizUrl</span> <span class="o">=</span> <span class="sb">`/</span><span class="si">${</span><span class="nx">subj</span><span class="si">}</span><span class="sb">/</span><span class="si">${</span><span class="nx">totalQs</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+  <span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;http://localhost:5000/api/quiz&#39;</span><span class="o">+</span><span class="nx">fetchQuizUrl</span><span class="p">,</span> <span class="p">{</span> <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;cors&#39;</span> <span class="p">})</span>
     <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="p">=&gt;</span> <span class="p">{</span>
       <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">response</span><span class="p">.</span><span class="nx">ok</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;API response failed&#39;</span><span class="p">);</span>
@@ -814,7 +862,7 @@ for (var row of question) {
       <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">row</span> <span class="k">of</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">// BUG warning/resolution - DataTable requires row to be single append</span>
         <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#flaskBody&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;&lt;tr&gt;&lt;td&gt;&#39;</span> <span class="o">+</span> 
-            <span class="nx">row</span><span class="p">.</span><span class="nx">subject</span> <span class="o">+</span> <span class="s1">&#39;&lt;/td&gt;&lt;td&gt;&#39;</span> <span class="o">+</span> 
+            <span class="nx">subj</span> <span class="o">+</span> <span class="s1">&#39;&lt;/td&gt;&lt;td&gt;&#39;</span> <span class="o">+</span> 
             <span class="nx">row</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="s1">&#39;&lt;/td&gt;&lt;td&gt;&#39;</span> <span class="o">+</span> 
             <span class="nx">row</span><span class="p">.</span><span class="nx">question</span> <span class="o">+</span> <span class="s1">&#39;&lt;/td&gt;&lt;td&gt;&#39;</span> <span class="o">+</span> 
             <span class="nx">row</span><span class="p">.</span><span class="nx">answer</span> <span class="o">+</span> <span class="s1">&#39;&lt;/td&gt;&lt;/tr&gt;&#39;</span><span class="p">);</span>
@@ -852,15 +900,20 @@ for (var row of question) {
             <th>Subject</th>
             <th>ID</th>
             <th>Question</th>
-            <th>Answers</th>
+            <th>Answer</th>
         </tr>
     </thead>
     <tbody id="flaskBody"></tbody>
 </table>
 
+
+
 <script>
   $(document).ready(function() {
-    fetch('http://localhost:5000/api/quiz', { mode: 'cors' })
+  subj = 'Physics';
+  totalQs=10;
+  const fetchQuizUrl = `/${subj}/${totalQs}`;
+  fetch('http://localhost:5000/api/quiz'+fetchQuizUrl, { mode: 'cors' })
     .then(response => {
       if (!response.ok) {
         throw new Error('API response failed');
@@ -871,7 +924,7 @@ for (var row of question) {
       for (const row of data) {
         // BUG warning/resolution - DataTable requires row to be single append
         $('#flaskBody').append('<tr><td>' + 
-            row.subject + '</td><td>' + 
+            subj + '</td><td>' + 
             row.id + '</td><td>' + 
             row.question + '</td><td>' + 
             row.answer + '</td></tr>');
