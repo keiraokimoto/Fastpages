@@ -367,10 +367,10 @@ window.onload = wrap_img;
 
 
 
-<div id="d6def416-b444-44f8-82f5-624d2b38b472"></div>
+<div id="56557905-09f4-4054-82f9-a5b5b464d3cc"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#d6def416-b444-44f8-82f5-624d2b38b472');
+var element = $('#56557905-09f4-4054-82f9-a5b5b464d3cc');
 console.log("Question objects");
 
 /* class: Question
@@ -560,10 +560,10 @@ newQuestion.logIt();  // log to console
 
 
 
-<div id="dfafbfff-5637-46e9-904a-0c219a0e5056"></div>
+<div id="718dc6d5-e201-4ec2-95a2-00a0de3f4acd"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#dfafbfff-5637-46e9-904a-0c219a0e5056');
+var element = $('#718dc6d5-e201-4ec2-95a2-00a0de3f4acd');
 
 console.log("Question objects");
 
@@ -729,10 +729,10 @@ $('#jsonText').text(question.json);  // posts/embeds/writes compsci.json to HTML
 
 
 
-<div id="1033b2d5-6302-46bd-b145-402e5ad6909f"></div>
+<div id="fafeca51-1f2d-4745-926b-22d0b3bd5add"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#1033b2d5-6302-46bd-b145-402e5ad6909f');
+var element = $('#fafeca51-1f2d-4745-926b-22d0b3bd5add');
 console.log("Question Web Page");
 
 // extract JSON text from HTML page
@@ -782,7 +782,9 @@ for (var row of question) {
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">sortQuestions</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">id</span> <span class="o">=</span> 
+
+<span class="k">def</span> <span class="nf">sortQuestions</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
         <span class="n">min_index</span> <span class="o">=</span> <span class="n">i</span>
@@ -791,8 +793,6 @@ for (var row of question) {
                 <span class="n">min_index</span> <span class="o">=</span> <span class="n">j</span>
         <span class="nb">id</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="nb">id</span><span class="p">[</span><span class="n">min_index</span><span class="p">]</span> <span class="o">=</span> <span class="nb">id</span><span class="p">[</span><span class="n">min_index</span><span class="p">],</span> <span class="nb">id</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 
-<span class="c1"># Test the selection sort</span>
-<span class="nb">id</span> <span class="o">=</span> 
 <span class="n">sortQuestions</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
 </pre></div>
@@ -851,7 +851,7 @@ for (var row of question) {
   <span class="nx">subj</span> <span class="o">=</span> <span class="s1">&#39;Physics&#39;</span><span class="p">;</span>
   <span class="nx">totalQs</span><span class="o">=</span><span class="mf">10</span><span class="p">;</span>
   <span class="kr">const</span> <span class="nx">fetchQuizUrl</span> <span class="o">=</span> <span class="sb">`/</span><span class="si">${</span><span class="nx">subj</span><span class="si">}</span><span class="sb">/</span><span class="si">${</span><span class="nx">totalQs</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
-  <span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;http://localhost:5000/api/quiz&#39;</span><span class="o">+</span><span class="nx">fetchQuizUrl</span><span class="p">,</span> <span class="p">{</span> <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;cors&#39;</span> <span class="p">})</span>
+  <span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;http://localhost:5000/api/quiz/questions&#39;</span><span class="o">+</span><span class="nx">fetchQuizUrl</span><span class="p">,</span> <span class="p">{</span> <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;cors&#39;</span> <span class="p">})</span>
     <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="p">=&gt;</span> <span class="p">{</span>
       <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">response</span><span class="p">.</span><span class="nx">ok</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;API response failed&#39;</span><span class="p">);</span>
