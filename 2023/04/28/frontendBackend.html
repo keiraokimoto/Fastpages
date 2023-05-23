@@ -79,7 +79,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      19 min read
+      13 min read
     
 </span></p>
 
@@ -134,7 +134,6 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h1"><a href="#Write-notes-below">Write notes below </a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#Hacks">Hacks </a></li>
-<li class="toc-entry toc-h2"><a href="#CRUD-API">CRUD API </a></li>
 <li class="toc-entry toc-h2"><a href="#API-Fetch">API Fetch </a></li>
 </ul>
 </li>
@@ -657,6 +656,30 @@ Delete: Option for deleting every film, also takes in a name to delete that film
 <h1 id="Write-notes-below">
 <a class="anchor" href="#Write-notes-below" aria-hidden="true"><span class="octicon octicon-link"></span></a>Write notes below<a class="anchor-link" href="#Write-notes-below"> </a>
 </h1>
+<p>Frontend/Backend Notes:</p>
+<ul>
+<li>Backend is typically used for databases/storing data</li>
+<li>Frontend usually includes the UI</li>
+<li>Uses languages that include Javascript, Python</li>
+<li>Backend and frontend need to communicate with each other for a program to work</li>
+</ul>
+<p>CRUD:</p>
+<ul>
+<li>Short for create, read, update, delete</li>
+<li>These functions are used to manipulate code in the frontend</li>
+<li>Create adds data</li>
+<li>Read will read the data</li>
+<li>Update will make the data change to whatever the user inputs into the program</li>
+<li>Delete will discard the data as requested</li>
+</ul>
+<p>Fetch:</p>
+<ul>
+<li>Information is fetched from the backend and sent to the frontend</li>
+<li>Frontend manipulates that data</li>
+<li>Can also send data from the frontend back to the backend and update the database</li>
+<li>Backend can be hosted on a separate server and be fetched to the frontend that way</li>
+</ul>
+
 </div>
 </div>
 </div>
@@ -681,447 +704,6 @@ Delete: Option for deleting every film, also takes in a name to delete that film
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="CRUD-API">
-<a class="anchor" href="#CRUD-API" aria-hidden="true"><span class="octicon octicon-link"></span></a>CRUD API<a class="anchor-link" href="#CRUD-API"> </a>
-</h2>
-</div>
-</div>
-</div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
-<span class="kn">from</span> <span class="nn">flask_cors</span> <span class="kn">import</span> <span class="n">CORS</span>
-<span class="kn">from</span> <span class="nn">flask_login</span> <span class="kn">import</span> <span class="n">LoginManager</span>
-<span class="kn">from</span> <span class="nn">flask_sqlalchemy</span> <span class="kn">import</span> <span class="n">SQLAlchemy</span>
-<span class="kn">from</span> <span class="nn">flask_migrate</span> <span class="kn">import</span> <span class="n">Migrate</span>
-
-<span class="c1"># Setup of key Flask object (app)</span>
-<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-<span class="n">CORS</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">resources</span><span class="o">=</span><span class="p">{</span><span class="sa">r</span><span class="s2">"/*"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"origins"</span><span class="p">:</span> <span class="s2">"*"</span><span class="p">}})</span>
-<span class="c1"># Setup SQLAlchemy object and properties for the database (db)</span>
-<span class="n">dbURI</span> <span class="o">=</span> <span class="s1">'sqlite:///sqlite.db'</span>
-<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">'SQLALCHEMY_TRACK_MODIFICATIONS'</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">'SQLALCHEMY_DATABASE_URI'</span><span class="p">]</span> <span class="o">=</span> <span class="n">dbURI</span>
-<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">'SECRET_KEY'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'SECRET_KEY'</span>
-<span class="n">db</span> <span class="o">=</span> <span class="n">SQLAlchemy</span><span class="p">()</span>
-<span class="n">Migrate</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">db</span><span class="p">)</span>
-<span class="n">db</span><span class="o">.</span><span class="n">init_app</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
-
-<span class="c1"># Images storage</span>
-<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">'MAX_CONTENT_LENGTH'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span>  <span class="c1"># maximum size of uploaded content</span>
-<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">'UPLOAD_EXTENSIONS'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'.jpg'</span><span class="p">,</span> <span class="s1">'.png'</span><span class="p">,</span> <span class="s1">'.gif'</span><span class="p">]</span>  <span class="c1"># supported file types</span>
-<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">'UPLOAD_FOLDER'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'volumes/uploads/'</span>  <span class="c1"># location of user uploaded content</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="sd">""" database dependencies to support sqliteDB examples """</span>
-<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randrange</span>
-<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">base64</span>
-<span class="kn">import</span> <span class="nn">json</span>
-
-<span class="kn">from</span> <span class="nn">sqlalchemy.exc</span> <span class="kn">import</span> <span class="n">IntegrityError</span>
-
-<span class="kn">from</span> <span class="nn">werkzeug.security</span> <span class="kn">import</span> <span class="n">generate_password_hash</span><span class="p">,</span> <span class="n">check_password_hash</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">ARRAY</span><span class="p">,</span><span class="n">String</span> 
-
-
-<span class="k">class</span> <span class="nc">Direction</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">'Direction'</span>
-
-    <span class="nb">id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">_step</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">500</span><span class="p">),</span> <span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-    <span class="c1"># Defines a relationship between User record and Notes table, one-to-many (one user to many notes)</span>
-    <span class="n">foodID</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">'foods.id'</span><span class="p">))</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">step</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">foodID</span> <span class="o">=</span> <span class="nb">id</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_step</span> <span class="o">=</span> <span class="n">step</span>
-    
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step</span>
-    
-    <span class="c1"># a setter function, allows name to be updated after initial object creation</span>
-    <span class="nd">@step</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">step</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_step</span> <span class="o">=</span> <span class="n">step</span>
-
-    <span class="k">def</span> <span class="nf">is_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">step</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step</span> <span class="o">==</span> <span class="n">step</span>
-
-    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">"id"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">foodID</span><span class="p">,</span>
-            <span class="s2">"step"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">,</span>
-        <span class="p">}</span>
-
-<span class="k">class</span> <span class="nc">Ingredient</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">'ingredients'</span>
-
-    <span class="nb">id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">_type</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span> <span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">_amount</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Float</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">_unit</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span> <span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-    <span class="c1"># Defines a relationship between User record and Notes table, one-to-many (one user to many notes)</span>
-    <span class="n">foodID</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">'foods.id'</span><span class="p">))</span>
-
-    <span class="c1"># constructor of a User object, initializes the instance variables within object (self)</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="n">unit</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">foodID</span> <span class="o">=</span> <span class="nb">id</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_type</span> <span class="o">=</span> <span class="nb">type</span>    <span class="c1"># variables with self prefix become part of the object, </span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_amount</span> <span class="o">=</span> <span class="n">amount</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">unit</span> <span class="o">=</span> <span class="n">unit</span>
-
-     <span class="c1"># a name getter method, extracts name from object</span>
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_type</span>
-    
-    <span class="c1"># a setter function, allows name to be updated after initial object creation</span>
-    <span class="nd">@type</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_type</span> <span class="o">=</span> <span class="nb">type</span>
-    
-    <span class="c1"># a getter method, extracts email from object</span>
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">amount</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_amount</span>
-    
-    <span class="c1"># a setter function, allows name to be updated after initial object creation</span>
-    <span class="nd">@amount</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">amount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_amount</span> <span class="o">=</span> <span class="n">amount</span>
-        
-    <span class="c1"># check if uid parameter matches user id in object, return boolean</span>
-    <span class="k">def</span> <span class="nf">is_amount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_amount</span> <span class="o">==</span> <span class="n">amount</span>
-
-     <span class="c1"># a getter method, extracts email from object</span>
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">amount</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_amount</span>
-    
-    <span class="c1"># a setter function, allows name to be updated after initial object creation</span>
-    <span class="nd">@amount</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">amount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_amount</span> <span class="o">=</span> <span class="n">amount</span>
-        
-    <span class="c1"># check if uid parameter matches user id in object, return boolean</span>
-    <span class="k">def</span> <span class="nf">is_amount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_amount</span> <span class="o">==</span> <span class="n">amount</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">unit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unit</span>
-    
-    <span class="c1"># a setter function, allows name to be updated after initial object creation</span>
-    <span class="nd">@unit</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">unit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_unit</span> <span class="o">=</span> <span class="n">unit</span>
-
-    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">"id"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">foodID</span><span class="p">,</span>
-            <span class="s2">"type"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">,</span>
-            <span class="s2">"amount"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">amount</span><span class="p">,</span>
-            <span class="s2">"unit"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit</span>
-        <span class="p">}</span>
-
-<span class="k">class</span> <span class="nc">Food</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">'foods'</span>
-
-    <span class="c1"># Define the User schema with "vars" from object</span>
-    <span class="nb">id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">_name</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">directions</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">relationship</span><span class="p">(</span><span class="s2">"Direction"</span><span class="p">,</span> <span class="n">cascade</span><span class="o">=</span><span class="s1">'all, delete'</span><span class="p">,</span> <span class="n">backref</span><span class="o">=</span><span class="s1">'foods'</span><span class="p">,</span> <span class="n">lazy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">_description</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">500</span><span class="p">),</span> <span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="c1"># Defines a relationship between User record and Notes table, one-to-many (one user to many notes)</span>
-    <span class="n">ingredients</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">relationship</span><span class="p">(</span><span class="s2">"Ingredient"</span><span class="p">,</span> <span class="n">cascade</span><span class="o">=</span><span class="s1">'all, delete'</span><span class="p">,</span> <span class="n">backref</span><span class="o">=</span><span class="s1">'foods'</span><span class="p">,</span> <span class="n">lazy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    
-    <span class="c1"># constructor of a User object, initializes the instance variables within object (self)</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>    <span class="c1"># variables with self prefix become part of the object, </span>
-
-    <span class="c1"># a name getter method, extracts name from object</span>
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
-    
-    <span class="c1"># a setter function, allows name to be updated after initial object creation</span>
-    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
-    
-    <span class="c1"># a getter method, extracts email from object</span>
-    
-     <span class="c1"># a getter method, extracts email from object</span>
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_description</span>
-    
-    <span class="c1"># a setter function, allows name to be updated after initial object creation</span>
-    <span class="nd">@description</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">description</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_description</span> <span class="o">=</span> <span class="n">description</span>
-        
-    <span class="c1"># output content using str(object) in human readable form, uses getter</span>
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">'name: "</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">", id: "</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">", directions: "</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">directions</span><span class="si">}</span><span class="s1">"'</span>
-
-    <span class="c1"># output command to recreate the object, uses attribute directly</span>
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">'Person(name=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="si">}</span><span class="s1">, name=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="si">}</span><span class="s1">, directions=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_directions</span><span class="si">}</span><span class="s1">)'</span>
-    
-    <span class="c1"># output content using str(object) in human readable form, uses getter</span>
-    <span class="c1"># output content using json dumps, this is ready for API response</span>
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
-
-    <span class="c1"># CRUD create/add a new record to the table</span>
-    <span class="c1"># returns self or None on error</span>
-    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">'name in create '</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-            <span class="c1"># creates a person object from User(db.Model) class, passes initializers</span>
-            <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>  <span class="c1"># add prepares to persist person object to Users table</span>
-            <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>  <span class="c1"># SqlAlchemy "unit of work pattern" requires a manual commit</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">'id in create'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-            
-            <span class="k">return</span> <span class="bp">self</span>
-        <span class="k">except</span> <span class="n">IntegrityError</span>  <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">'someting wrong with adding food: '</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
-            <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
-            <span class="k">return</span> <span class="kc">None</span>
-
-    <span class="c1"># CRUD read converts self to dictionary</span>
-    <span class="c1"># returns dictionary</span>
-    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">"id"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
-            <span class="s2">"name"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-            <span class="s2">"directions"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">directions</span><span class="p">,</span>
-            <span class="s2">"ingredients"</span><span class="p">:</span> <span class="p">[</span><span class="n">ingredient</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="k">for</span> <span class="n">ingredient</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ingredients</span><span class="p">],</span>
-            <span class="s2">"directions"</span><span class="p">:</span> <span class="p">[</span><span class="n">direction</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="k">for</span> <span class="n">direction</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">directions</span><span class="p">]</span>
-        <span class="p">}</span>
-
-    <span class="c1"># CRUD update: updates user name, password, phone</span>
-    <span class="c1"># returns self</span>
-    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""only updates values with length"""</span>
-        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">'update'</span><span class="p">)</span>
-        <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">self</span>
-
-    <span class="c1"># CRUD delete: remove self</span>
-    <span class="c1"># None</span>
-    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
-        <span class="k">return</span> <span class="kc">None</span>
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">getRecipeByName</span><span class="p">(</span><span class="n">recname</span><span class="p">):</span>
-        <span class="n">recs</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Food</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">Food</span><span class="o">.</span><span class="n">_name</span> <span class="o">==</span> <span class="n">recname</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">recs</span><span class="p">:</span>
-            <span class="c1"># Should be just 1 rec matched</span>
-            <span class="k">return</span> <span class="n">r</span>
-        
-        <span class="k">return</span> <span class="kc">None</span>
-
-<span class="sd">"""Database Creation and Testing """</span>
-<span class="c1"># Builds working data for testing</span>
-<span class="n">recipeList</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">def</span> <span class="nf">initFoods</span><span class="p">():</span>
-    <span class="sd">"""Create database and tables"""</span>
-    <span class="n">db</span><span class="o">.</span><span class="n">create_all</span><span class="p">()</span>
-    
-    <span class="sd">"""Tester data for table"""</span>
-    <span class="c1"># f1 = Food(name='Shoyu Ramen', directions='ajkddmsd')</span>
-    <span class="c1"># f2 = Food(name='Tonkatsu', directions='hdasdjad')</span>
-    <span class="c1"># f3 = Food(name='Yakisoba', directions='sadjsdasa')</span>
-    <span class="c1"># put user objects in list for convenience</span>
-    <span class="n">recipes</span> <span class="o">=</span> <span class="n">loadRecipes</span><span class="p">()</span>
-    
-    <span class="n">foods</span> <span class="o">=</span> <span class="n">recipes</span><span class="p">[</span><span class="s2">"Recipes"</span><span class="p">]</span>
-    <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">foods</span><span class="p">))</span>
-    
-    <span class="sd">"""Builds sample user/note(s) data"""</span>
-    <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">foods</span><span class="p">:</span>
-        <span class="k">try</span><span class="p">:</span>
-            
-            <span class="sd">'''add a few 1 to 4 notes per user'''</span>
-            <span class="n">dirs</span> <span class="o">=</span> <span class="n">rec</span><span class="p">[</span><span class="s2">"Directions"</span><span class="p">]</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">dirs</span><span class="p">)</span>
-            
-            <span class="n">food</span> <span class="o">=</span> <span class="n">Food</span><span class="p">(</span><span class="n">rec</span><span class="p">[</span><span class="s2">"Name"</span><span class="p">])</span> 
-            <span class="k">for</span> <span class="n">ing</span> <span class="ow">in</span> <span class="n">rec</span><span class="p">[</span><span class="s2">"Ingredients"</span><span class="p">]:</span>
-                <span class="n">food</span><span class="o">.</span><span class="n">ingredients</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Ingredient</span><span class="p">(</span><span class="n">food</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">ing</span><span class="p">[</span><span class="s2">"type"</span><span class="p">],</span> <span class="n">amount</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">ing</span><span class="p">[</span><span class="s2">"amount"</span><span class="p">]),</span> <span class="n">unit</span><span class="o">=</span><span class="n">ing</span><span class="p">[</span><span class="s2">"unit"</span><span class="p">]))</span>
-            
-            <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="n">rec</span><span class="p">[</span><span class="s2">"Directions"</span><span class="p">]:</span>
-                <span class="n">food</span><span class="o">.</span><span class="n">directions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Direction</span><span class="p">(</span><span class="n">food</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">step</span><span class="p">))</span>
-
-
-            <span class="sd">'''add user/post data to table'''</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="n">food</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
-        <span class="k">except</span> <span class="n">IntegrityError</span><span class="p">:</span>
-            <span class="sd">'''fails with bad or duplicate data'''</span>
-            <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span> 
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Records exist, duplicate email, or error: </span><span class="si">{</span><span class="n">food</span><span class="o">.</span><span class="n">uid</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">loadRecipes</span><span class="p">():</span>
-    <span class="n">SITE_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
-    <span class="n">json_url</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">SITE_ROOT</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="s2">"jpFood.json"</span><span class="p">)</span>
-    <span class="n">recipeList</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">json_url</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">recipeList</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Blueprint</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">jsonify</span>
-<span class="kn">from</span> <span class="nn">flask_restful</span> <span class="kn">import</span> <span class="n">Api</span><span class="p">,</span> <span class="n">Resource</span> <span class="c1"># used for REST API building</span>
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">SimpleNamespace</span> <span class="k">as</span> <span class="n">Namespace</span>
-
-<span class="n">jpFood_api</span> <span class="o">=</span> <span class="n">Blueprint</span><span class="p">(</span><span class="s1">'jpFood_api'</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">,</span>
-                   <span class="n">url_prefix</span><span class="o">=</span><span class="s1">'/api/jpFood'</span><span class="p">)</span>
-
-<span class="c1"># API docs https://flask-restful.readthedocs.io/en/latest/api.html</span>
-<span class="n">api</span> <span class="o">=</span> <span class="n">Api</span><span class="p">(</span><span class="n">jpFood_api</span><span class="p">)</span>
-
-<span class="k">class</span> <span class="nc">jpFoodAPI</span><span class="p">:</span>        
-    <span class="k">class</span> <span class="nc">_SaveRecipe</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
-        <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="p">)</span>
-            <span class="sd">''' Read data for json body '''</span>
-            <span class="n">body</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-            
-            <span class="n">rec</span> <span class="o">=</span> <span class="n">Food</span><span class="o">.</span><span class="n">getRecipeByName</span><span class="p">(</span><span class="n">body</span><span class="p">[</span><span class="s2">"name"</span><span class="p">])</span>
-            <span class="n">iIngreds</span> <span class="o">=</span> <span class="n">body</span><span class="p">[</span><span class="s2">"ingredients"</span><span class="p">]</span>
-            <span class="n">ingredients</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">foodId</span> <span class="o">=</span> <span class="n">rec</span><span class="o">.</span><span class="n">id</span> <span class="k">if</span> <span class="n">rec</span> <span class="o">!=</span> <span class="kc">None</span> <span class="k">else</span>  <span class="mi">0</span>
-            <span class="k">for</span> <span class="n">ing</span> <span class="ow">in</span> <span class="n">iIngreds</span><span class="p">:</span>
-                <span class="n">x</span> <span class="o">=</span> <span class="n">ing</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span>
-                <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-                <span class="n">ingredients</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Ingredient</span><span class="p">(</span> <span class="n">foodId</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">ing</span><span class="p">[</span><span class="s2">"type"</span><span class="p">],</span> <span class="n">amount</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">ing</span><span class="p">[</span><span class="s2">"amount"</span><span class="p">]),</span> <span class="n">unit</span><span class="o">=</span><span class="n">ing</span><span class="p">[</span><span class="s2">"unit"</span><span class="p">]))</span>
-            <span class="n">iDirections</span> <span class="o">=</span> <span class="n">body</span><span class="p">[</span><span class="s2">"directions"</span><span class="p">]</span>
-            <span class="n">directions</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">iDirections</span><span class="p">:</span>
-                <span class="n">x</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">"step"</span><span class="p">]</span>
-                <span class="n">directions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Direction</span><span class="p">(</span> <span class="n">foodId</span><span class="p">,</span> <span class="n">x</span> <span class="p">))</span>
-
-            <span class="k">if</span> <span class="p">(</span><span class="n">rec</span> <span class="o">==</span> <span class="kc">None</span><span class="p">):</span>
-                <span class="n">rec</span> <span class="o">=</span> <span class="n">Food</span><span class="p">(</span><span class="n">body</span><span class="p">[</span><span class="s2">"name"</span><span class="p">])</span>
-                <span class="n">rec</span><span class="o">.</span><span class="n">ingredients</span> <span class="o">=</span> <span class="n">ingredients</span>
-                <span class="n">rec</span><span class="o">.</span><span class="n">directions</span> <span class="o">=</span> <span class="n">directions</span>
-                <span class="n">rec</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s1">'Create new recipe'</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">rec</span><span class="o">.</span><span class="n">ingredients</span> <span class="o">=</span> <span class="n">ingredients</span>
-                <span class="n">rec</span><span class="o">.</span><span class="n">directions</span> <span class="o">=</span> <span class="n">directions</span>
-                <span class="n">rec</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">body</span><span class="p">[</span><span class="s2">"description"</span><span class="p">]</span>
-                <span class="n">rec</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">"Update existing recipe"</span><span class="p">)</span> 
-            <span class="nb">print</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">rec</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-            
-    <span class="k">class</span> <span class="nc">_SavePortions</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
-        <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="p">)</span>
-            <span class="sd">''' Read data for json body '''</span>
-            <span class="n">body</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-            
-            <span class="n">portionReturn</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">"name"</span><span class="p">:</span> <span class="n">body</span><span class="p">[</span><span class="s2">"name"</span><span class="p">],</span>
-                <span class="s2">"description"</span><span class="p">:</span> <span class="n">body</span><span class="p">[</span><span class="s2">"description"</span><span class="p">],</span>
-                <span class="s2">"ingredients"</span><span class="p">:</span> <span class="p">[],</span>
-                <span class="s2">"directions"</span><span class="p">:</span> <span class="n">body</span><span class="p">[</span><span class="s2">"directions"</span><span class="p">],</span>
-                        <span class="p">}</span>
-            
-            <span class="n">rec</span> <span class="o">=</span> <span class="n">Food</span><span class="o">.</span><span class="n">getRecipeByName</span><span class="p">(</span><span class="n">body</span><span class="p">[</span><span class="s2">"name"</span><span class="p">])</span>
-            <span class="n">iIngreds</span> <span class="o">=</span> <span class="n">body</span><span class="p">[</span><span class="s2">"ingredients"</span><span class="p">]</span>
-            <span class="n">iIngredsPortion</span> <span class="o">=</span> <span class="n">body</span><span class="p">[</span><span class="s2">"portions"</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">ing</span> <span class="ow">in</span> <span class="n">iIngreds</span><span class="p">:</span>
-                <span class="n">a</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">ing</span><span class="p">[</span><span class="s2">"amount"</span><span class="p">])</span>
-                <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-                <span class="nb">print</span><span class="p">(</span><span class="n">iIngredsPortion</span><span class="p">)</span>
-                <span class="nb">print</span><span class="p">(</span><span class="mf">0.25</span> <span class="o">*</span> <span class="mf">1.6</span><span class="p">)</span>
-                <span class="n">portionAmnt</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">iIngredsPortion</span><span class="p">)</span>
-                <span class="n">ing</span><span class="p">[</span><span class="s2">"amount"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">portionAmnt</span><span class="p">)</span>
-               
-                <span class="n">portionReturn</span><span class="p">[</span><span class="s2">"ingredients"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ing</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">portionReturn</span>
-
-    <span class="k">class</span> <span class="nc">_Read</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
-        <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-            <span class="n">foods</span> <span class="o">=</span> <span class="n">Food</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>    <span class="c1"># read/extract all users from database</span>
-            <span class="n">json_ready</span> <span class="o">=</span> <span class="p">[</span><span class="n">food</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="k">for</span> <span class="n">food</span> <span class="ow">in</span> <span class="n">foods</span><span class="p">]</span>  <span class="c1"># prepare output in json</span>
-            <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">json_ready</span><span class="p">)</span>  <span class="c1"># jsonify creates Flask response object, more specific to APIs than json.dumps</span>
-
-    <span class="k">class</span> <span class="nc">_Delete</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span> 
-        <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="p">)</span>
-            <span class="n">body</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-            
-            <span class="n">rec</span> <span class="o">=</span> <span class="n">Food</span><span class="o">.</span><span class="n">getRecipeByName</span><span class="p">(</span><span class="n">body</span><span class="p">[</span><span class="s2">"name"</span><span class="p">])</span>
-            <span class="k">if</span> <span class="n">rec</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">return</span> <span class="p">{</span>
-                    <span class="s1">'message'</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"'</span><span class="si">{</span><span class="n">body</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span><span class="si">}</span><span class="s2">' location does not exist."</span>
-                <span class="p">}</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">rec</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
-                <span class="k">return</span> <span class="kc">True</span>
-
-
-    <span class="c1"># building RESTapi endpoint</span>
-    <span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">_SaveRecipe</span><span class="p">,</span> <span class="s1">'/'</span><span class="p">)</span>
-    <span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">_SavePortions</span><span class="p">,</span> <span class="s1">'/portions'</span><span class="p">)</span>
-    <span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">_Read</span><span class="p">,</span> <span class="s1">'/'</span><span class="p">)</span>
-    <span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">_Delete</span><span class="p">,</span> <span class="s1">'/delete'</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
