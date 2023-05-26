@@ -8,22 +8,22 @@ image: /images/feedback.jpeg
 tags: [javascript, fetch, dom, getElementID, appendChild]
 ---
 
-
 {% include custom-head.html %}
-<table id="flaskTable" class="table cell-border stripe" style="width:100%;">
+<table id="flaskTable" class="table cell-border stripe" style="width:80%;">
     <thead id="flaskHead">
         <tr>
+            <th>Pinned</th>
             <th>Subject</th>
             <th>ID</th>
             <th>Question</th>
             <th>Answer</th>
-            <th>Pinned</th>
         </tr>
     </thead>
     <tbody id="flaskBody"></tbody>
 </table>
  
 <!-- Script is layed out in a sequence (without a function) and will execute when page is loaded -->
+
 <script>
   $(document).ready(function() {
   
@@ -51,6 +51,8 @@ tags: [javascript, fetch, dom, getElementID, appendChild]
       const pinb = document.getElementById('pinner');
       if (pinb != undefined) {
         pinb.addEventListener("click", handlePinEvent);
+          }
+          
       }
     })
     .catch(error => {
@@ -72,9 +74,16 @@ tags: [javascript, fetch, dom, getElementID, appendChild]
     
     pinned = event.target.checked;
     rec = dataX[event.target.id];
+    for (let key in data) {
+            let option = document.createElement("option");
+            firstOptionKey = firstOptionKey ?? data[key].name;
+            option.setAttribute("value", data[key].name);
+            let optionText = document.createTextNode(data[key].name);
+            option.appendChild(optionText);
+            pinned.appendChild(option);
+    }
     // TODO: uset setPinned api
     // event.target.value = pinned ? 'pinned' : 'unpinned';
       
   }
-
 </script>
